@@ -1,7 +1,13 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
 
-export default function Home() {
+export default function Home({ navigation }) {
+
+  const pressHandler = () => {
+    navigation.navigate('Register')
+  }
+  
   return (
     <View style={styles.container}>
       <Image
@@ -9,6 +15,10 @@ export default function Home() {
         source = {{
           uri: 'https://upload.wikimedia.org/wikipedia/fr/archive/a/ad/20190808214536%21Logo-Snapchat.png'}}
       />
+      <Button
+        large
+        onPress={pressHandler}
+        title='START' />
     </View>
   );
 }
