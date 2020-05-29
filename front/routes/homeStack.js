@@ -13,10 +13,15 @@ const screens = {
     },
     Login: {
         screen: Login
-    }
-
+    },
+    
 };
 
-const HomeStack = createStackNavigator(screens);
+const HomeStack = createStackNavigator(screens, {
+    defaultNavigationOptions: {
+      header: null,
+    //   gesturesEnabled: false
+    }
+  });
 
 export default createAppContainer(HomeStack)

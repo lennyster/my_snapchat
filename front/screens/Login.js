@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, AsyncStorage, Text, View, TouchableHighlight  } from 'react-native';
+import { StyleSheet, AsyncStorage, Text, View, TouchableHighlight, Image  } from 'react-native';
 import { AppLoading } from 'expo';
-import { FormLabel, Button, Image, FormInput, FormValidationMessage } from 'react-native-elements';
+// import { FormLabel, Button, Image, FormInput, FormValidationMessage } from 'react-native-elements';
 import t from 'tcomb-form-native';
 import Axios from 'axios';
+
+
 
 const Form = t.form.Form;
 
@@ -44,6 +46,22 @@ export default class Login extends Component{
         this.props.navigation.navigate('Register')
     }
 
+    onLoginSuccess = () => {
+        Alert.alert("You are now logged in!")
+    }
+
+    _retrieveData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('token');
+          if (value !== null) {
+            // We have data!!
+            console.log(value);
+          }
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
+
     handleSubmit = async () => {
         const value = this.refs.form.getValue(); // use that ref to get the form value
         if (value) {
@@ -52,14 +70,18 @@ export default class Login extends Component{
             Axios.post('http://snapi.epitech.eu/connection', this.state.value).then(response => {
                     console.log(response)
                     token = response.data.data.token
+                    console.log(token)
                     try {
                         AsyncStorage.setItem(
                           'token',
-                          token
+                          response.data.data.token
                         );
                       } catch (error) {
                         // Error saving data
                       }
+                    if (response.status == 200) {
+                        this.onLoginSuccess()
+                    }
 
                 }).catch(error => {
                     console.log(error)
@@ -75,6 +97,15 @@ export default class Login extends Component{
       render (){
         return (
             <View style={this.styles.container}>
+            <View style={{paddingVertical: 60, display:"flex", alignItems:"center"}}>
+                <Image
+                    style={this.styles.image}
+                    source = {{
+                    uri: 'https://upload.wikimedia.org/wikipedia/fr/archive/a/ad/20190808214536%21Logo-Snapchat.png'}}
+                />
+                <Text style={{fontWeight:"bold", fontSize:30, color: "#f23b57"}}>Login</Text>
+            </View>
+            <View>
                 <Form 
                     style={this.styles.form}
                     ref="form"
@@ -83,12 +114,12 @@ export default class Login extends Component{
                     onChange={this.onChange}
                     value={this.state.value}
                 />
-                <TouchableHighlight style={this.styles.button} onPress={this.handleSubmit}>
-                    <Text style={this.styles.buttonText}>Sign Up!</Text>
-                </TouchableHighlight>
-                <TouchableHighlight style={this.styles.button} onPress={this.pressHandler} >
-                    <Text style={this.styles.buttonText}>Register !</Text>
-                </TouchableHighlight>
+                <View style={{paddingVertical: 15, paddingHorizontal:50,  display:"flex", alignItems:"center"}}>
+                    <TouchableHighlight style={this.styles.button} onPress={this.handleSubmit}>
+                        <Text style={this.styles.buttonText}>Sign Up!</Text>
+                    </TouchableHighlight>
+                </View>
+            </View>
             </View>
         );
     }
@@ -99,22 +130,35 @@ export default class Login extends Component{
           backgroundColor: '#fff',
           padding: 20,
           justifyContent: 'center',
+          display:"flex",
         },
         
         form: {
             width:"100%"
         },
+        image: {
+            width: 50,
+            height: 50,
+            marginBottom: 10
+        },
         buttonText: {
           fontSize: 18,
           color: 'white',
-          alignSelf: 'center'
+          alignSelf: 'center',
+          fontWeight:"bold"
         },
         button: {
           height: 45,
-          backgroundColor: '#000000',
+          width: "100%",
+          backgroundColor: "#f23b57",
           marginBottom: 10,
-          alignSelf: 'stretch',
-          justifyContent: 'center'
+          borderRadius: 50, 
+          display:"flex",
+          alignItems:"center",
+          alignContent:"center",
+        //   alignSelf: 'stretch',
+          justifyContent: 'center',
+          
         }
       });
 
