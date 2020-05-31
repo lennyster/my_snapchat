@@ -9,6 +9,7 @@ export default function App() {
   return (
     <Navigator />
   );
+  console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
 }
 
 const styles = StyleSheet.create({

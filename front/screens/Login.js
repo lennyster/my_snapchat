@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, AsyncStorage, Text, View, TouchableHighlight, Image  } from 'react-native';
+import { StyleSheet, AsyncStorage, Text, View, TouchableHighlight, Image, Alert  } from 'react-native';
 import { AppLoading } from 'expo';
 // import { FormLabel, Button, Image, FormInput, FormValidationMessage } from 'react-native-elements';
 import t from 'tcomb-form-native';
@@ -43,11 +43,12 @@ export default class Login extends Component{
     }
 
     pressHandler = () => {
-        this.props.navigation.navigate('Register')
+        this.props.navigation.navigate('Send')
     }
 
     onLoginSuccess = () => {
-        Alert.alert("You are now logged in!")
+        Alert.alert("You are now logged in!", "Vous allez être redirigé", [{text: 'OK', onPress: () => this.pressHandler()}])
+        this._retrieveData()
     }
 
     _retrieveData = async () => {
@@ -68,14 +69,17 @@ export default class Login extends Component{
             var email = this.state.value.email
             var password = this.state.value.password
             Axios.post('http://snapi.epitech.eu/connection', this.state.value).then(response => {
-                    console.log(response)
-                    token = response.data.data.token
-                    console.log(token)
+                    //console.log(response)
+                    //console.log(response.data.data.token)
                     try {
                         AsyncStorage.setItem(
                           'token',
                           response.data.data.token
                         );
+                        AsyncStorage.setItem(
+                            'email',
+                            response.data.data.email
+                          );
                       } catch (error) {
                         // Error saving data
                       }

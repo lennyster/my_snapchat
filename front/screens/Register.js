@@ -45,7 +45,7 @@ export default class Register extends Component {
     }
 
     onRegisterSuccess = () => {
-        Alert.alert("You are now registered!", "My Alert Msg", [ {text: 'OK', onPress: () => console.log('OK Pressed')} ] )
+        Alert.alert("You are now registered!", "My Alert Msg", [ {text: 'OK', onPress: () => this.pressHandler} ] )
     }
 
 
