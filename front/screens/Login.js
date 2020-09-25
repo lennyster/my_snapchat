@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, AsyncStorage, Text, View, TouchableHighlight, Image, Alert  } from 'react-native';
+import { StyleSheet, AsyncStorage, Text, TouchableOpacity, View, TouchableHighlight, Image, Alert  } from 'react-native';
 import { AppLoading } from 'expo';
 // import { FormLabel, Button, Image, FormInput, FormValidationMessage } from 'react-native-elements';
 import t from 'tcomb-form-native';
@@ -45,6 +45,10 @@ export default class Login extends Component{
     pressHandler = () => {
         this.props.navigation.navigate('Send')
     }
+
+    pressHandler2 = () => {
+      this.props.navigation.navigate('Register')
+  }
 
     onLoginSuccess = () => {
         Alert.alert("You are now logged in!", "Vous allez être redirigé", [{text: 'OK', onPress: () => this.pressHandler()}])
@@ -122,6 +126,9 @@ export default class Login extends Component{
                     <TouchableHighlight style={this.styles.button} onPress={this.handleSubmit}>
                         <Text style={this.styles.buttonText}>Sign Up!</Text>
                     </TouchableHighlight>
+                    <TouchableOpacity onPress={this.pressHandler2}>
+                        <Text style={{fontSize: 12, color: 'black', alignSelf: 'center', fontWeight:"bold"}}>Register</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             </View>

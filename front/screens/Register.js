@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Image, Alert  } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Image, Alert  } from 'react-native';
 import { AppLoading } from 'expo';
 import { FormLabel, Button, FormInput, FormValidationMessage } from 'react-native-elements';
 import t from 'tcomb-form-native';
@@ -90,6 +90,9 @@ export default class Register extends Component {
                     <TouchableHighlight style={this.styles.button} onPress={this.handleSubmit}>
                         <Text style={this.styles.buttonText}>Sign Up!</Text>
                     </TouchableHighlight>
+                    <TouchableOpacity onPress={this.pressHandler}>
+                        <Text style={{fontSize: 12, color: 'black', alignSelf: 'center', fontWeight:"bold"}}>Login</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             </View>

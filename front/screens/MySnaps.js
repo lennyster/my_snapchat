@@ -82,7 +82,7 @@ export default class MySnaps extends Component {
                     source = {{
                     uri: 'https://upload.wikimedia.org/wikipedia/fr/archive/a/ad/20190808214536%21Logo-Snapchat.png'}}
                 />
-                <Text style={{fontWeight:"bold", fontSize:40, textAlign:"center"}}>Vous n'avez pas reçu de snap.</Text>
+                <Text style={{fontWeight:"bold", fontSize:40, textAlign:"center"}}>You did not receive a snap.</Text>
             </View>
         )
     }

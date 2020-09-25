@@ -39,7 +39,6 @@ export default class DisplaySnap extends Component {
     }
 
     displaySnap = () => {
-        
         return(
             <Image
             style={this.styles.image}
